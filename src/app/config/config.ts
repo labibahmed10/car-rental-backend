@@ -8,4 +8,8 @@ export default {
   port: process.env.PORT,
   database_url: process.env.DATABASE_URL,
   bcrypt_salt_rounds: Number(process.env.BCRYPT_SALT_ROUNDS),
+  access_token_secret: process.env.ACCESS_TOKEN_SECRET,
+  refresh_token_secret: process.env.REFRESH_TOKEN_SECRET,
+  access_token_expires_in: process.env.ACCESS_TOKEN_EXPIRES_IN,
+  refresh_token_expires_in: process.env.REFRESH_TOKEN_EXPIRES_IN,
 };

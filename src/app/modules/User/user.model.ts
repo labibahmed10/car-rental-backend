@@ -1,11 +1,11 @@
 import { Schema, model } from "mongoose";
-import { IUser } from "./user.interface";
+import { IUser, IUserModel } from "./user.interface";
 import { Role } from "./user.constant";
 import bcrypt from "bcrypt";
 import config from "../../config/config";
 
 // user schema
-const userSchema = new Schema<IUser>(
+const userSchema = new Schema<IUser, IUserModel>(
   {
     name: {
       type: String,
@@ -24,6 +24,7 @@ const userSchema = new Schema<IUser>(
     password: {
       type: String,
       required: [true, "Password is required"],
+      select: false,
     },
     phone: {
       type: String,
@@ -64,5 +65,21 @@ userSchema.set("toJSON", {
   },
 });
 
+// user model static function (isUserExistById)
+userSchema.statics.isUserExistById = async function (id: string) {
+  return await UserModel.findById(id);
+};
+
+// user model static function (isUserExistByEmail)
+userSchema.statics.isUserExistByEmail = async function (email: string) {
+  return await UserModel.findOne({ email }).select("+password");
+};
+
+// user model static function (isPasswordMatched)
+userSchema.statics.isPasswordMatched = async function (plainPassword: string, hashedPassword: string) {
+  return await bcrypt.compare(plainPassword, hashedPassword);
+};
+
 // user model
-export const UserModel = model<IUser>("User", userSchema);
+export const UserModel = model<IUser, IUserModel>("User", userSchema);
+const use = "me";

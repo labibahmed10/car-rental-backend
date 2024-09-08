@@ -3,9 +3,12 @@ import { UserController } from "./user.controller";
 import validateRequest from "../../middleware/validateRequest";
 import { userValidationSchema } from "./user.validation";
 
-const router = express.Router();
+const UserRoutes = express.Router();
 
 // signup route
-router.post("/signup", validateRequest(userValidationSchema.createUserValidationSchema), UserController.signUpUser);
+UserRoutes.post("/signup", validateRequest(userValidationSchema.createUserValidationSchema), UserController.signUpUser);
 
-export const UserRoutes = router;
+// signin route
+UserRoutes.post("/signin", validateRequest(userValidationSchema.loginUserValidationSchema), UserController.signInUser);
+
+export default UserRoutes;
