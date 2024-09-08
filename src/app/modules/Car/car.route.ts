@@ -8,5 +8,7 @@ const CarRoutes = express.Router();
 
 // create car
 CarRoutes.post("/", authCheck("admin"), validateRequest(CarValidations.createCarValidationSchema), CarController.createCar);
+CarRoutes.get("/", CarController.getAllCars);
+
 
 export default CarRoutes;

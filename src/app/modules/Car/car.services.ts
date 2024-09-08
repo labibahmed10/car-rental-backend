@@ -6,6 +6,12 @@ const createCarsIntoDB = async (payload: ICar) => {
   return result;
 };
 
+const getAllCarsFromDB = async () => {
+  const result = await CarModel.find({ isDeleted: false });
+  return result;
+};
+
 export const CarService = {
   createCarsIntoDB,
+  getAllCarsFromDB,
 };
