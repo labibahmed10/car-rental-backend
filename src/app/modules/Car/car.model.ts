@@ -11,6 +11,7 @@ const carSchema = new Schema<ICar>(
     description: {
       type: String,
       required: [true, "Description is required"],
+      trim: true,
     },
     color: {
       type: String,
@@ -23,6 +24,7 @@ const carSchema = new Schema<ICar>(
     status: {
       type: String,
       enum: carStatus,
+      required: [true, "Status is required"],
       default: "available",
     },
     features: {
@@ -44,4 +46,4 @@ const carSchema = new Schema<ICar>(
   }
 );
 
-export const Car = model<ICar>("Car", carSchema);
+export const CarModel = model<ICar>("Car", carSchema);

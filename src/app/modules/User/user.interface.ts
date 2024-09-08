@@ -23,4 +23,5 @@ export interface IUserModel extends Model<IUser> {
   isPasswordMatched(plainPassword: string, hashedPassword: string): Promise<boolean>;
 }
 
+// user role type
 export type TUserRole = keyof typeof userRole;

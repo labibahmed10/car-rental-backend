@@ -1,11 +1,12 @@
 import express from "express";
+import { CarValidations } from "./car.validation";
+import validateRequest from "../../middleware/validateRequest";
+import { CarController } from "./car.controller";
+import authCheck from "../../middleware/authCheck";
 
 const CarRoutes = express.Router();
 
-// signup route
-CarRoutes.post("");
-
-// signin route
-CarRoutes.post("");
+// create car
+CarRoutes.post("/", authCheck("admin"), validateRequest(CarValidations.createCarValidationSchema), CarController.createCar);
 
 export default CarRoutes;
