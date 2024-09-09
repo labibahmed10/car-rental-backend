@@ -3,7 +3,7 @@ import AppError from "../../error/AppError";
 import { CarModel } from "../Car/car.model";
 import { carBookingStatus } from "./booking.constant";
 import { IBookingPayload } from "./booking.interface";
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { BookingModel } from "./booking.model";
 import QueryBuilder from "../../builder/QueryBuilder";
 
@@ -59,8 +59,7 @@ const getAllBookingFromDb = async (query: Record<string, unknown>) => {
     delete query.carId;
   }
 
-  const queryBuilder = new QueryBuilder(BookingModel.find({}).populate("user")
-    .populate("car"), query)
+  const queryBuilder = new QueryBuilder(BookingModel.find({}).populate("user").populate("car"), query)
     .search([])
     .filter()
     .sort()
@@ -69,4 +68,12 @@ const getAllBookingFromDb = async (query: Record<string, unknown>) => {
   const result = await queryBuilder.modelQuery;
   return result;
 };
-export const BookingService = { createBookingIntroDb, getAllBookingFromDb };
+
+const getMyBookingsFromDb = async (userID: string) => {
+  const result = await BookingModel.find({ user: new Types.ObjectId(userID) })
+    .populate("user")
+    .populate("car");
+  return result;
+};
+
+export const BookingService = { createBookingIntroDb, getAllBookingFromDb, getMyBookingsFromDb };

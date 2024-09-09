@@ -9,4 +9,5 @@ const BookingRoutes = express.Router();
 
 BookingRoutes.post("/", authCheck(userRole.user), validateRequest(BookingValidations.bookingSetValidationSchema), BookingController.createBooking);
 BookingRoutes.get("/", authCheck(userRole.admin), BookingController.getAllBooking);
+BookingRoutes.get("/my-bookings", authCheck(userRole.user), BookingController.getMyBookings);
 export default BookingRoutes;

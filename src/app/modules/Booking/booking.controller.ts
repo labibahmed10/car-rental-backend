@@ -17,4 +17,11 @@ const getAllBooking = catchAsyncFunc(async (req, res) => {
   sendResponse(res, httpStatus.OK, "Bookings retrieved successfully", result);
 });
 
-export const BookingController = { createBooking, getAllBooking };
+const getMyBookings = catchAsyncFunc(async (req, res) => {
+  const userID = req.user?.userId;
+  const result = await BookingService.getMyBookingsFromDb(userID);
+
+  sendResponse(res, httpStatus.OK, "My bookings retrieved successfully", result);
+});
+
+export const BookingController = { createBooking, getAllBooking, getMyBookings };
