@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import router from "./app/routes";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
+import notFoundRoutes from "./app/middleware/notFoundRoutes";
 const app: Application = express();
 
 app.use(express.json());
@@ -18,5 +19,7 @@ app.use(globalErrorHandler);
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to Car Rental");
 });
+
+app.use(notFoundRoutes);
 
 export default app;
