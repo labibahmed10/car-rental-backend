@@ -28,7 +28,11 @@ const authCheck = (...requiredRoles: TUserRole[]) => {
     }
 
     if (requiredRoles.length && !requiredRoles.includes(decoded.role)) {
-      return next(new AppError(httpStatus.FORBIDDEN, "You have no access to this route"));
+      return res.status(httpStatus.UNAUTHORIZED).json({
+        success: false,
+        statusCode: httpStatus.UNAUTHORIZED,
+        message: "You have no access to this route",
+      });
     }
 
     req.user = decoded;
