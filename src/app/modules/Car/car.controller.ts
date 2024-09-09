@@ -16,7 +16,13 @@ const getAllCars = catchAsyncFunc(async (req, res) => {
   sendResponse(res, httpStatus.OK, "Cars fetched successfully", result);
 });
 
+const getCarById = catchAsyncFunc(async (req, res) => {
+  const result = await CarService.getCarByIdFromDB(req.params.id);
+  sendResponse(res, httpStatus.OK, "A Car retrieved successfully", result);
+});
+
 export const CarController = {
   createCar,
   getAllCars,
+  getCarById,
 };

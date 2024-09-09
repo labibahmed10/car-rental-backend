@@ -9,16 +9,17 @@ const createCarsIntoDB = async (payload: ICar) => {
 };
 
 const getAllCarsFromDB = async (query: Record<string, unknown>) => {
-  const fetchQuery = new QueryBuilder(CarModel.find(), query)
-  .search(carSearchableFields)
-  .filter()
-  .sort()
-  .paginate()
-  .selectFields();
+  const fetchQuery = new QueryBuilder(CarModel.find(), query).search(carSearchableFields).filter().sort().paginate().selectFields();
   return fetchQuery;
+};
+
+const getCarByIdFromDB = async (id: string) => {
+  const result = await CarModel.findById(id);
+  return result;
 };
 
 export const CarService = {
   createCarsIntoDB,
   getAllCarsFromDB,
+  getCarByIdFromDB,
 };
