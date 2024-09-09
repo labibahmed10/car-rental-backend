@@ -2,6 +2,7 @@ import httpStatus from "http-status";
 import catchAsyncFunc from "../../utils/catchAsyncFunc";
 import sendResponse from "../../utils/sendResponse";
 import { CarService } from "./car.services";
+import sendNoDataFound from "../../utils/sendNoDataFound";
 
 // create a car controller
 const createCar = catchAsyncFunc(async (req, res) => {
@@ -13,11 +14,21 @@ const createCar = catchAsyncFunc(async (req, res) => {
 const getAllCars = catchAsyncFunc(async (req, res) => {
   const fetchQuery = await CarService.getAllCarsFromDB(req.query);
   const result = await fetchQuery.modelQuery;
+
+  if (!result || result.length === 0) {
+    sendNoDataFound(res);
+  }
+
   sendResponse(res, httpStatus.OK, "Cars fetched successfully", result);
 });
 
 const getCarById = catchAsyncFunc(async (req, res) => {
   const result = await CarService.getCarByIdFromDB(req.params.id);
+
+  if (!result) {
+    sendNoDataFound(res);
+  }
+
   sendResponse(res, httpStatus.OK, "A Car retrieved successfully", result);
 });
 
