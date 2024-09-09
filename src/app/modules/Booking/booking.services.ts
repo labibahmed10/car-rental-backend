@@ -5,6 +5,7 @@ import { carBookingStatus } from "./booking.constant";
 import { IBookingPayload } from "./booking.interface";
 import mongoose from "mongoose";
 import { BookingModel } from "./booking.model";
+import QueryBuilder from "../../builder/QueryBuilder";
 
 const createBookingIntroDb = async (userID: string, payload: IBookingPayload) => {
   const carID = payload.carId;
@@ -52,4 +53,20 @@ const createBookingIntroDb = async (userID: string, payload: IBookingPayload) =>
   }
 };
 
-export const BookingService = { createBookingIntroDb };
+const getAllBookingFromDb = async (query: Record<string, unknown>) => {
+  if (query.carId) {
+    query.car = query.carId;
+    delete query.carId;
+  }
+
+  const queryBuilder = new QueryBuilder(BookingModel.find({}).populate("user")
+    .populate("car"), query)
+    .search([])
+    .filter()
+    .sort()
+    .paginate();
+
+  const result = await queryBuilder.modelQuery;
+  return result;
+};
+export const BookingService = { createBookingIntroDb, getAllBookingFromDb };
