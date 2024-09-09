@@ -39,17 +39,16 @@ const createBookingIntroDb = async (userID: string, payload: IBookingPayload) =>
     }
 
     const bookingId = booking?._id;
-
     await session.commitTransaction();
-    await session.endSession();
 
     const result = await BookingModel.findById({ _id: bookingId }).populate("user").populate("car");
     return result;
   } catch (error) {
     await session.abortTransaction();
-    await session.endSession();
 
     throw new AppError(httpStatus.BAD_REQUEST, error instanceof Error ? error.message : "An unknown error occurred");
+  } finally {
+    await session.endSession();
   }
 };
 
@@ -59,11 +58,7 @@ const getAllBookingFromDb = async (query: Record<string, unknown>) => {
     delete query.carId;
   }
 
-  const queryBuilder = new QueryBuilder(BookingModel.find({}).populate("user").populate("car"), query)
-    .search([])
-    .filter()
-    .sort()
-    .paginate();
+  const queryBuilder = new QueryBuilder(BookingModel.find({}).populate("user").populate("car"), query).search([]).filter().sort().paginate();
 
   const result = await queryBuilder.modelQuery;
   return result;

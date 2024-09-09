@@ -11,3 +11,8 @@ export interface ICar {
   pricePerHour: number;
   isDeleted: boolean;
 }
+
+export interface ICarReturn {
+  bookingId: string;
+  endTime: Date;
+}

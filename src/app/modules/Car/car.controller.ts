@@ -31,10 +31,16 @@ const deleteCar = catchAsyncFunc(async (req, res) => {
   sendResponse(res, httpStatus.OK, "Car deleted successfully", result);
 });
 
+const returnTheCar = catchAsyncFunc(async (req, res) => {
+  const result = await CarService.returnTheCarFromDB(req.body);
+  sendResponse(res, httpStatus.OK, "Car returned successfully", result);
+});
+
 export const CarController = {
   createCar,
   getAllCars,
   getCarById,
   updateCar,
   deleteCar,
+  returnTheCar,
 };
