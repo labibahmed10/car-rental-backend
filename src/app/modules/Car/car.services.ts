@@ -1,3 +1,5 @@
+import QueryBuilder from "../../builder/QueryBuilder";
+import { carSearchableFields } from "./car.constant";
 import { ICar } from "./car.interface";
 import { CarModel } from "./car.model";
 
@@ -6,9 +8,14 @@ const createCarsIntoDB = async (payload: ICar) => {
   return result;
 };
 
-const getAllCarsFromDB = async () => {
-  const result = await CarModel.find({ isDeleted: false });
-  return result;
+const getAllCarsFromDB = async (query: Record<string, unknown>) => {
+  const fetchQuery = new QueryBuilder(CarModel.find(), query)
+  .search(carSearchableFields)
+  .filter()
+  .sort()
+  .paginate()
+  .selectFields();
+  return fetchQuery;
 };
 
 export const CarService = {

@@ -10,10 +10,9 @@ const createCar = catchAsyncFunc(async (req, res) => {
   sendResponse(res, httpStatus.CREATED, "Car created successfully", result);
 });
 
-
 const getAllCars = catchAsyncFunc(async (req, res) => {
-  const result = await CarService.getAllCarsFromDB();
-
+  const fetchQuery = await CarService.getAllCarsFromDB(req.query);
+  const result = await fetchQuery.modelQuery;
   sendResponse(res, httpStatus.OK, "Cars fetched successfully", result);
 });
 
