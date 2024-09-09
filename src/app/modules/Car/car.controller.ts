@@ -26,9 +26,15 @@ const updateCar = catchAsyncFunc(async (req, res) => {
   sendResponse(res, httpStatus.OK, "Car updated successfully", result);
 });
 
+const deleteCar = catchAsyncFunc(async (req, res) => {
+  const result = await CarService.deleteCarFromDB(req.params.id);
+  sendResponse(res, httpStatus.OK, "Car deleted successfully", result);
+});
+
 export const CarController = {
   createCar,
   getAllCars,
   getCarById,
   updateCar,
+  deleteCar,
 };
