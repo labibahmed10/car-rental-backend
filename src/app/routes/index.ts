@@ -1,6 +1,7 @@
 import { Router } from "express";
 import UserRoutes from "../modules/User/user.route";
 import CarRoutes from "../modules/Car/car.route";
+import BookingRoutes from "../modules/Booking/booking.route";
 
 // route initialization
 const router = Router();
@@ -14,6 +15,10 @@ const routes = [
   {
     path: "/cars",
     route: CarRoutes,
+  },
+  {
+    path: "/bookings",
+    route: BookingRoutes,
   },
 ];
 
