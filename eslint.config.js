@@ -19,6 +19,7 @@ export default [
       "no-console": "warn",
       "no-undef": "error",
     },
+    extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
     parser: tsParser,
     parserOptions: {
       ecmaVersion: 2020,
