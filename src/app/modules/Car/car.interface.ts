@@ -6,10 +6,18 @@ export interface ICar {
   description: string;
   color: string;
   isElectric: boolean;
-  status: TCarStatus;
   features: string[];
+  type: string;
+  image: string;
+  status: TCarStatus;
+  model: string;
   pricePerHour: number;
   isDeleted: boolean;
+  gps?: boolean;
+  childSeat?: boolean;
+  location?: string;
+  availabilityDates?: string[];
+  isFeatured: boolean;
 }
 
 export interface ICarReturn {

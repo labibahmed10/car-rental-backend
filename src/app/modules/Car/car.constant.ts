@@ -2,4 +2,4 @@
 export const carStatus = ["available", "unavailable"];
 
 // car searchable fields array
-export const carSearchableFields = ["name", "description", "color"];
+export const carSearchableFields = ["name", "description", "color", "type"];

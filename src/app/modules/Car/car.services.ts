@@ -16,9 +16,15 @@ const getAllCarsFromDB = async (query: Record<string, unknown>) => {
   const fetchQuery = new QueryBuilder(CarModel.find(), query)
     .search(carSearchableFields)
     .filter()
+    .filterByTypes()
+    .filterByAvailabilityDates()
+    .filterByIsElectric()
+    .filterByLocation()
+    .filterByPrice()
+    .select()
     .sort()
-    .paginate()
-    .selectFields().modelQuery;
+    .paginate().modelQuery;
+
   return fetchQuery;
 };
 

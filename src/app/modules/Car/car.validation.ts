@@ -13,6 +13,12 @@ const createCarValidationSchema = z.object({
     color: z.string({
       required_error: "Color is required",
     }),
+    type: z.string({
+      required_error: "Car Type is required",
+    }),
+    image: z.string({
+      required_error: "Image is required",
+    }),
     isElectric: z.boolean({
       required_error: "isElectric is required",
     }),
@@ -25,6 +31,14 @@ const createCarValidationSchema = z.object({
     pricePerHour: z.number({
       required_error: "Price Per Hour is required",
     }),
+    model: z.string({
+      required_error: "Model is required",
+    }),
+    location: z.string({
+      required_error: "Location is required",
+    }),
+    gps: z.preprocess((val) => val === true, z.boolean()),
+    childSeat: z.preprocess((val) => val === true, z.boolean()),
   }),
 });
 
@@ -34,10 +48,16 @@ const updateCarValidationSchema = z.object({
     name: z.string().optional(),
     description: z.string().optional(),
     color: z.string().optional(),
+    type: z.string().optional(),
+    image: z.string().optional(),
     isElectric: z.boolean().optional(),
     status: z.enum([...carStatus] as [string, ...string[]]).optional(),
     features: z.array(z.string()).optional(),
     pricePerHour: z.number().optional(),
+    model: z.string().optional(),
+    location: z.string().optional(),
+    gps: z.preprocess((val) => val === true, z.boolean()).optional(),
+    childSeat: z.preprocess((val) => val === true, z.boolean()).optional(),
   }),
 });
 

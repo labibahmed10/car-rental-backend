@@ -13,9 +13,9 @@ const createCar = catchAsyncFunc(async (req, res) => {
 
 const getAllCars = catchAsyncFunc(async (req, res) => {
   const result = await CarService.getAllCarsFromDB(req.query);
-  
+
   if (!result || result.length === 0) {
-    sendNoDataFound(res);
+    return sendNoDataFound(res);
   }
 
   sendResponse(res, httpStatus.OK, "Cars fetched successfully", result);
@@ -25,7 +25,7 @@ const getCarById = catchAsyncFunc(async (req, res) => {
   const result = await CarService.getCarByIdFromDB(req.params.id);
 
   if (!result) {
-    sendNoDataFound(res);
+    return sendNoDataFound(res);
   }
 
   sendResponse(res, httpStatus.OK, "A Car retrieved successfully", result);
