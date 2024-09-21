@@ -82,4 +82,4 @@ userSchema.statics.isPasswordMatched = async function (plainPassword: string, ha
 
 // user model
 export const UserModel = model<IUser, IUserModel>("User", userSchema);
-const use = "me";
+

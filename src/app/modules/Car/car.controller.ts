@@ -12,9 +12,8 @@ const createCar = catchAsyncFunc(async (req, res) => {
 });
 
 const getAllCars = catchAsyncFunc(async (req, res) => {
-  const fetchQuery = await CarService.getAllCarsFromDB(req.query);
-  const result = await fetchQuery.modelQuery;
-
+  const result = await CarService.getAllCarsFromDB(req.query);
+  
   if (!result || result.length === 0) {
     sendNoDataFound(res);
   }

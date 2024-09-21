@@ -13,12 +13,12 @@ const createCarsIntoDB = async (payload: ICar) => {
 };
 
 const getAllCarsFromDB = async (query: Record<string, unknown>) => {
-  const fetchQuery = new QueryBuilder(CarModel.find({ isDeleted: false }), query)
+  const fetchQuery = new QueryBuilder(CarModel.find(), query)
     .search(carSearchableFields)
     .filter()
     .sort()
     .paginate()
-    .selectFields();
+    .selectFields().modelQuery;
   return fetchQuery;
 };
 
