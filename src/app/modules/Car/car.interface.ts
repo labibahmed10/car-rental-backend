@@ -7,6 +7,7 @@ export interface ICar {
   color: string;
   isElectric: boolean;
   features: string[];
+  year: string;
   type: string;
   image: string;
   status: TCarStatus;

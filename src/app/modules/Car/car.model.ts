@@ -21,6 +21,10 @@ const carSchema = new Schema<ICar>(
       type: String,
       required: [true, "Car Type is required"],
     },
+    year: {
+      type: String,
+      required: [true, "Year is required"],
+    },
     image: {
       type: String,
       required: [true, "Image is required"],

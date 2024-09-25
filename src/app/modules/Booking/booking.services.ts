@@ -9,12 +9,12 @@ import QueryBuilder from "../../builder/QueryBuilder";
 
 const createBookingIntroDb = async (userID: string, payload: IBookingPayload) => {
   const carID = payload.carId;
-
   const isCarExist = await CarModel.findOne({
     _id: carID,
     isDeleted: false,
     status: carBookingStatus.available,
   });
+
   if (!isCarExist) {
     throw new AppError(httpStatus.NOT_FOUND, "Car does not exist for booking");
   }

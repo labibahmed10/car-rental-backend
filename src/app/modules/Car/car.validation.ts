@@ -16,6 +16,9 @@ const createCarValidationSchema = z.object({
     type: z.string({
       required_error: "Car Type is required",
     }),
+    year: z.string({
+      required_error: "Year is required",
+    }),
     image: z.string({
       required_error: "Image is required",
     }),
@@ -49,6 +52,7 @@ const updateCarValidationSchema = z.object({
     description: z.string().optional(),
     color: z.string().optional(),
     type: z.string().optional(),
+    year: z.string().optional(),
     image: z.string().optional(),
     isElectric: z.boolean().optional(),
     status: z.enum([...carStatus] as [string, ...string[]]).optional(),
