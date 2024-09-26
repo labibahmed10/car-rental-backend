@@ -32,7 +32,8 @@ const getCarById = catchAsyncFunc(async (req, res) => {
 });
 
 const updateCar = catchAsyncFunc(async (req, res) => {
-  const result = await CarService.updateCarIntoDB(req.params.id, req.body);
+  const data = req.body?.data;
+  const result = await CarService.updateCarIntoDB(req.params.id, data);
   sendResponse(res, httpStatus.OK, "Car updated successfully", result);
 });
 

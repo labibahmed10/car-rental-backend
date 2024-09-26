@@ -13,7 +13,7 @@ const createCarsIntoDB = async (payload: ICar) => {
 };
 
 const getAllCarsFromDB = async (query: Record<string, unknown>) => {
-  const fetchQuery = new QueryBuilder(CarModel.find(), query)
+  const fetchQuery = new QueryBuilder(CarModel.find({ isDeleted: false }), query)
     .search(carSearchableFields)
     .filter()
     .filterByTypes()
@@ -34,7 +34,16 @@ const getCarByIdFromDB = async (id: string) => {
 };
 
 const updateCarIntoDB = async (id: string, payload: Partial<ICar>) => {
-  const result = await CarModel.findByIdAndUpdate(id, payload, { new: true, runValidators: true });
+  // console.log(id, payload?.data);
+  const result = await CarModel.findByIdAndUpdate(
+    { _id: id },
+    { ...payload },
+    {
+      new: true,
+      runValidators: true,
+      upsert: true,
+    }
+  );
   return result;
 };
 
