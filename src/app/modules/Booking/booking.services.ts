@@ -71,4 +71,45 @@ const getMyBookingsFromDb = async (userID: string) => {
   return result;
 };
 
-export const BookingService = { createBookingIntroDb, getAllBookingFromDb, getMyBookingsFromDb };
+const cancelABookingFromDB = async (id: string) => {
+  const bookedCar = await BookingModel.findById({ _id: id });
+  if (!bookedCar) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Booking not found");
+  }
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
+    const carID = bookedCar.car._id;
+
+    const findTheCarAndUpdateIt = await CarModel.findByIdAndUpdate(
+      {
+        _id: carID,
+      },
+      {
+        status: carBookingStatus.available,
+      }
+    );
+
+    if (!findTheCarAndUpdateIt) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Could not update!");
+    }
+
+    const result = await BookingModel.deleteOne({
+      _id: id,
+    });
+
+    if (!result) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Could not delete booking");
+    }
+
+    await session.commitTransaction();
+    return result;
+  } catch (error) {
+    await session.abortTransaction();
+    throw new AppError(httpStatus.BAD_REQUEST, error instanceof Error ? error.message : "An unknown error occurred");
+  } finally {
+    await session.endSession();
+  }
+};
+
+export const BookingService = { createBookingIntroDb, getAllBookingFromDb, getMyBookingsFromDb, cancelABookingFromDB };
