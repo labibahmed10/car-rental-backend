@@ -15,7 +15,7 @@ const createBooking = catchAsyncFunc(async (req, res) => {
 const getAllBooking = catchAsyncFunc(async (req, res) => {
   const result = await BookingService.getAllBookingFromDb(req.query);
 
-  if (!result || result.length === 0) {
+  if (result.length === 0) {
     return sendNoDataFound(res);
   }
   sendResponse(res, httpStatus.OK, "Bookings retrieved successfully", result);

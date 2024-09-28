@@ -35,15 +35,11 @@ const getCarByIdFromDB = async (id: string) => {
 
 const updateCarIntoDB = async (id: string, payload: Partial<ICar>) => {
   // console.log(id, payload?.data);
-  const result = await CarModel.findByIdAndUpdate(
-    { _id: id },
-    { ...payload },
-    {
-      new: true,
-      runValidators: true,
-      upsert: true,
-    }
-  );
+  const result = await CarModel.findByIdAndUpdate({ _id: id }, payload, {
+    new: true,
+    runValidators: true,
+    upsert: true,
+  });
   return result;
 };
 

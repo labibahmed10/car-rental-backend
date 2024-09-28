@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-
+type BookingStatus = "ongoing" | "complete";
 // booking interface
 export interface IBooking {
   date: string;
@@ -8,6 +8,7 @@ export interface IBooking {
   startTime: string;
   endTime: string;
   totalCost: number;
+  status: BookingStatus;
 }
 
 export interface IBookingPayload {
