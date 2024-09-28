@@ -57,9 +57,18 @@ importers:
       '@types/jsonwebtoken':
         specifier: ^9.0.6
         version: 9.0.6
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8.4.0
+        version: 8.4.0(@typescript-eslint/parser@8.4.0(eslint@9.10.0)(typescript@5.5.4))(eslint@9.10.0)(typescript@5.5.4)
+      '@typescript-eslint/parser':
+        specifier: ^8.4.0
+        version: 8.4.0(eslint@9.10.0)(typescript@5.5.4)
       eslint:
         specifier: ^9.10.0
         version: 9.10.0
+      globals:
+        specifier: ^15.9.0
+        version: 15.9.0
       ts-node-dev:
         specifier: ^2.0.0
         version: 2.0.0(@types/node@22.5.4)(typescript@5.5.4)
@@ -661,6 +670,10 @@ packages:
 
   globals@14.0.0:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
+    engines: {node: '>=18'}
+
+  globals@15.9.0:
+    resolution: {integrity: sha512-SmSKyLLKFbSr6rptvP8izbyxJL4ILwqO9Jg23UA0sDlGlu58V59D1//I3vlc0KJphVdUR7vMjHIplYnzBxorQA==}
     engines: {node: '>=18'}
 
   gopd@1.0.1:
@@ -2033,6 +2046,8 @@ snapshots:
       path-is-absolute: 1.0.1
 
   globals@14.0.0: {}
+
+  globals@15.9.0: {}
 
   gopd@1.0.1:
     dependencies:

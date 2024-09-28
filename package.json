@@ -6,8 +6,8 @@
     "start:prod": "nodemon ./dist/server.js",
     "start:dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
     "build": "tsc",
-    "lint": "npx eslint .",
-    "lint:fix": "npx eslint . --fix"
+    "lint": "pnpx eslint .",
+    "lint:fix": "pnpx eslint . --fix"
   },
   "keywords": [],
   "author": "",
@@ -32,7 +32,10 @@
     "@types/eslint__js": "^8.42.3",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
+    "@typescript-eslint/eslint-plugin": "^8.4.0",
+    "@typescript-eslint/parser": "^8.4.0",
     "eslint": "^9.10.0",
+    "globals": "^15.9.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.4.0"

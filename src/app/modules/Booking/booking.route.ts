@@ -8,7 +8,7 @@ import { BookingController } from "./booking.controller";
 const BookingRoutes = express.Router();
 
 // create a booking - user
-BookingRoutes.post("/", authCheck(userRole.user), validateRequest(BookingValidations.bookingSetValidationSchema), BookingController.createBooking);
+BookingRoutes.post("/", authCheck(userRole.user), validateRequest(BookingValidations.createBookingValidationSchema), BookingController.createBooking);
 
 // get all bookings - admin
 BookingRoutes.get("/", authCheck(userRole.admin), BookingController.getAllBooking);
