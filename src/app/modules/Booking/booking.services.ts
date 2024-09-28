@@ -58,13 +58,7 @@ const getAllBookingFromDb = async (query: Record<string, unknown>) => {
     delete query.carId;
   }
 
-  const queryBuilder = new QueryBuilder(BookingModel.find({})
-  .populate("user")
-  .populate("car"), query)
-  .search([])
-  .filter()
-  .sort()
-  .paginate();
+  const queryBuilder = new QueryBuilder(BookingModel.find({}).populate("user").populate("car"), query).search([]).filter().sort().paginate();
 
   const result = await queryBuilder.modelQuery;
   return result;
@@ -118,4 +112,30 @@ const cancelABookingFromDB = async (id: string) => {
   }
 };
 
-export const BookingService = { createBookingIntroDb, getAllBookingFromDb, getMyBookingsFromDb, cancelABookingFromDB };
+const updateABookingInDB = async (id: string, payload: IBookingPayload) => {
+  const booking = await BookingModel.findById({ _id: id });
+  if (!booking) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Booking not found");
+  }
+
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
+
+    const updatedBooking = await BookingModel.findByIdAndUpdate({ _id: id }, { ...payload }, { new: true, runValidators: true, session });
+
+    if (!updatedBooking) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to update booking");
+    }
+
+    await session.commitTransaction();
+    return updatedBooking;
+  } catch (error) {
+    await session.abortTransaction();
+    throw new AppError(httpStatus.BAD_REQUEST, error instanceof Error ? error.message : "An unknown error occurred");
+  } finally {
+    await session.endSession();
+  }
+};
+
+export const BookingService = { createBookingIntroDb, getAllBookingFromDb, getMyBookingsFromDb, cancelABookingFromDB, updateABookingInDB };

@@ -39,4 +39,12 @@ const cancelABooking = catchAsyncFunc(async (req, res) => {
   sendResponse(res, httpStatus.OK, "Booking Canceled Successfully", result);
 });
 
-export const BookingController = { createBooking, getAllBooking, getMyBookings, cancelABooking };
+const updateABooking = catchAsyncFunc(async (req, res) => {
+  const id = req.params?.id;
+  const bookingInfo = req.body;
+  const result = await BookingService.updateABookingInDB(id, bookingInfo);
+
+  sendResponse(res, httpStatus.OK, "Booking updated successfully", result);
+});
+
+export const BookingController = { createBooking, getAllBooking, getMyBookings, cancelABooking, updateABooking };

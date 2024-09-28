@@ -1,5 +1,7 @@
 import { Types } from "mongoose";
-type BookingStatus = "ongoing" | "complete";
+
+type BookingStatus = "pending" | "approved" | "cancelled" | "completed";
+
 // booking interface
 export interface IBooking {
   date: string;
@@ -9,6 +11,10 @@ export interface IBooking {
   endTime: string;
   totalCost: number;
   status: BookingStatus;
+  nidOrPassport: string;
+  drivingLicense: string;
+  paymentMethod: string;
+  accountNo: string;
 }
 
 export interface IBookingPayload {
