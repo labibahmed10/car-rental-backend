@@ -118,24 +118,35 @@ const updateABookingInDB = async (id: string, payload: IBookingPayload) => {
     throw new AppError(httpStatus.BAD_REQUEST, "Booking not found");
   }
 
-  const session = await mongoose.startSession();
-  try {
-    session.startTransaction();
+  const updatedBooking = await BookingModel.findByIdAndUpdate({ _id: id }, { ...payload }, { new: true, runValidators: true });
 
-    const updatedBooking = await BookingModel.findByIdAndUpdate({ _id: id }, { ...payload }, { new: true, runValidators: true, session });
-
-    if (!updatedBooking) {
-      throw new AppError(httpStatus.BAD_REQUEST, "Failed to update booking");
-    }
-
-    await session.commitTransaction();
-    return updatedBooking;
-  } catch (error) {
-    await session.abortTransaction();
-    throw new AppError(httpStatus.BAD_REQUEST, error instanceof Error ? error.message : "An unknown error occurred");
-  } finally {
-    await session.endSession();
+  if (!updatedBooking) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Failed to update booking");
   }
+
+  return updatedBooking;
 };
 
-export const BookingService = { createBookingIntroDb, getAllBookingFromDb, getMyBookingsFromDb, cancelABookingFromDB, updateABookingInDB };
+const updateBookingStatusInDB = async (id: string, status: string) => {
+  const booking = await BookingModel.findById({ _id: id });
+  if (!booking) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Booking not found");
+  }
+
+  const updatedBooking = await BookingModel.findByIdAndUpdate({ _id: id }, { status }, { new: true, runValidators: true });
+
+  if (!updatedBooking) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Failed to update booking status");
+  }
+
+  return updatedBooking;
+};
+
+export const BookingService = {
+  createBookingIntroDb,
+  getAllBookingFromDb,
+  getMyBookingsFromDb,
+  cancelABookingFromDB,
+  updateABookingInDB,
+  updateBookingStatusInDB,
+};

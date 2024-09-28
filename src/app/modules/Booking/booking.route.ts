@@ -19,7 +19,15 @@ BookingRoutes.get("/my-bookings", authCheck(userRole.user), BookingController.ge
 // cancel booking - admin (might give access to user)
 BookingRoutes.put("/:id", authCheck(userRole.admin), BookingController.cancelABooking);
 
-// update a single booking - admin | user
-BookingRoutes.put("/updateBooking/:id", authCheck(userRole.admin, userRole.user), BookingController.updateABooking);
+// update a single booking -  user
+BookingRoutes.put(
+  "/updateBooking/:id",
+  authCheck(userRole.user),
+  validateRequest(BookingValidations.updateBookingValidationSchema),
+  BookingController.updateABooking
+);
+
+// update a booking status only - admin
+BookingRoutes.patch("/updateBooking/:id", authCheck(userRole.admin), BookingController.updateBookingStatus);
 
 export default BookingRoutes;

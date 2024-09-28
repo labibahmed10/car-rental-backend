@@ -40,6 +40,20 @@ const createBookingValidationSchema = z.object({
   }),
 });
 
+const updateBookingValidationSchema = z.object({
+  params: z.object({
+    id: z.string({
+      required_error: "Booking ID is required",
+    }),
+  }),
+  body: z.object({
+    date: z.string().optional(),
+    startTime: z.string().optional(),
+    endTime: z.string().optional(),
+  }),
+});
+
 export const BookingValidations = {
   createBookingValidationSchema,
+  updateBookingValidationSchema,
 };
