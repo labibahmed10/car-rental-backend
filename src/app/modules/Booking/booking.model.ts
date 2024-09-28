@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { IBooking } from "./booking.interface";
+import { bookingStatus, paymentMethod } from "./booking.constant";
 
 // booking schema
 const bookingSchema = new Schema<IBooking>(
@@ -15,27 +16,58 @@ const bookingSchema = new Schema<IBooking>(
         message: (props: any) => `${props.value} is not a valid date!`,
       },
     },
+
     startTime: {
       type: String,
       required: [true, "Start Time is required"],
     },
+
     endTime: {
       type: String,
       default: null,
     },
+
     user: {
       type: Schema.Types.ObjectId,
       required: [true, "User is required"],
       ref: "User",
     },
+
     car: {
       type: Schema.Types.ObjectId,
       required: [true, "Car is required"],
       ref: "Car",
     },
+
     totalCost: {
       type: Number,
       default: 0,
+    },
+
+    status: {
+      type: String,
+      enum: bookingStatus,
+      default: "pending",
+    },
+
+    paymentMethod: {
+      type: String,
+      enum: paymentMethod,
+      required: [true, "Payment method is required"],
+    },
+
+    nidOrPassport: {
+      type: String,
+      required: [true, "Nid  or Passport ID is required"],
+    },
+
+    drivingLicense: {
+      type: String,
+      required: [true, "Driving License is required"],
+    },
+    accountNo: {
+      type: String,
+      required: false,
     },
   },
   {

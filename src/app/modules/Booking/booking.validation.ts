@@ -1,6 +1,7 @@
 import { z } from "zod";
+import { paymentMethod } from "./booking.constant";
 
-const bookingSetValidationSchema = z.object({
+const createBookingValidationSchema = z.object({
   body: z.object({
     date: z
       .string({
@@ -12,9 +13,11 @@ const bookingSetValidationSchema = z.object({
       .refine((date) => !isNaN(new Date(date).getTime()), {
         message: "Invalid date",
       }),
+
     carId: z.string({
       required_error: "Car is required",
     }),
+
     startTime: z
       .string({
         required_error: "Start Time is required",
@@ -22,9 +25,21 @@ const bookingSetValidationSchema = z.object({
       .regex(/^([01]\d|2[0-3]):([0-5]\d)$/, {
         message: "Start Time must be in HH:MM format",
       }),
+
+    nidOrPassport: z.string({
+      required_error: "National ID or Passport is required",
+    }),
+
+    drivingLicense: z.string({
+      required_error: "Driving License is required",
+    }),
+
+    paymentMethod: z.enum([...(paymentMethod as [string, ...string[]])]),
+
+    accountNo: z.string().optional(),
   }),
 });
 
 export const BookingValidations = {
-  bookingSetValidationSchema,
+  createBookingValidationSchema,
 };
