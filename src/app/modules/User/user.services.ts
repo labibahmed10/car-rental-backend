@@ -42,7 +42,14 @@ const signInUserFromDB = async (payload: Pick<IUser, "email" | "password">) => {
     refreshToken,
   };
 };
+
+const getAllUsersFromDB = async () => {
+  const users = await UserModel.find({});
+  return users;
+};
+
 export const UserServices = {
   signUpUserIntoDB,
   signInUserFromDB,
+  getAllUsersFromDB,
 };

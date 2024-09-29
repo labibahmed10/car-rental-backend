@@ -3,6 +3,7 @@ import { UserServices } from "./user.services";
 import catchAsyncFunc from "../../utils/catchAsyncFunc";
 import sendResponse from "../../utils/sendResponse";
 import config from "../../config/config";
+import sendNoDataFound from "../../utils/sendNoDataFound";
 
 // user signup controller
 const signUpUser = catchAsyncFunc(async (req, res) => {
@@ -25,7 +26,17 @@ const signInUser = catchAsyncFunc(async (req, res) => {
   sendResponse(res, httpStatus.OK, "User logged in successfully", user, accessToken);
 });
 
+const getAllUsers = catchAsyncFunc(async (req, res) => {
+  const result = await UserServices.getAllUsersFromDB();
+
+  if (!result) {
+    return sendNoDataFound(res);
+  }
+  sendResponse(res, httpStatus.OK, "Users fetched successfully", result);
+});
+
 export const UserController = {
   signUpUser,
   signInUser,
+  getAllUsers,
 };

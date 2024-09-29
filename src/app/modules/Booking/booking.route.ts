@@ -28,6 +28,6 @@ BookingRoutes.put(
 );
 
 // update a booking status only - admin
-BookingRoutes.patch("/updateBooking/:id", authCheck(userRole.admin), BookingController.updateBookingStatus);
+BookingRoutes.patch("/:id/status", authCheck(userRole.admin), BookingController.updateBookingStatus);
 
 export default BookingRoutes;

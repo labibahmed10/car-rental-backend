@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 
-type BookingStatus = "pending" | "confirmed" | "cancelled" | "completed";
+type BookingStatus = "pending" | "confirmed" | "completed";
 
 type PaymentMethod = "cash" | "card" | "online";
 // booking interface

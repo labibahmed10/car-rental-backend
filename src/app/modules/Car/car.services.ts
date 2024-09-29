@@ -75,7 +75,7 @@ const returnTheCarFromDB = async (payload: ICarReturn) => {
 
     const result = await BookingModel.findByIdAndUpdate(
       { _id: payload.bookingId },
-      { totalCost: totalCost },
+      { totalCost: totalCost, status: "completed" },
       { new: true, runValidators: true, session }
     )
       .populate("user")

@@ -3,6 +3,6 @@ export const carBookingStatus = {
   unavailable: "unavailable",
 } as const;
 
-export const bookingStatus = ["pending", "confirmed", "cancelled", "completed"];
+export const bookingStatus = ["pending", "confirmed", "completed"];
 
 export const paymentMethod = ["cash", "card", "online"];

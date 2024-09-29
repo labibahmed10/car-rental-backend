@@ -58,7 +58,15 @@ const getAllBookingFromDb = async (query: Record<string, unknown>) => {
     delete query.carId;
   }
 
-  const queryBuilder = new QueryBuilder(BookingModel.find({}).populate("user").populate("car"), query).search([]).filter().sort().paginate();
+  const queryBuilder = new QueryBuilder(
+    BookingModel
+    .find({})
+    .populate("user")
+    .populate("car"), query)
+    .search([])
+    .filter()
+    .sort()
+    .paginate();
 
   const result = await queryBuilder.modelQuery;
   return result;
