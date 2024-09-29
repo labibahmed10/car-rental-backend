@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import QueryBuilder from "../../builder/QueryBuilder";
-import { carSearchableFields } from "./car.constant";
+import { calculateHourDifference, carSearchableFields } from "./car.constant";
 import { ICar, ICarReturn } from "./car.interface";
 import { CarModel } from "./car.model";
 import { BookingModel } from "../Booking/booking.model";
@@ -70,15 +70,8 @@ const returnTheCarFromDB = async (payload: ICarReturn) => {
       { new: true, runValidators: true, session }
     );
 
-    const startTime = updateEndTime?.startTime.split(":")[0];
-    const endTime = updateEndTime?.endTime.split(":")[0];
-
-    // If startTime is "14:00" and endTime is "12:00",
-    // Math.abs(-2) will give us 2, ensuring the hourDifference is always positive.
-    const hourDifference = Math.abs(Number(endTime) - Number(startTime));
-
     const pricePerHour = car?.pricePerHour;
-    const totalCost = Number(pricePerHour) * hourDifference;
+    const totalCost = Number(pricePerHour) * calculateHourDifference(updateEndTime.startTime, updateEndTime.endTime);
 
     const result = await BookingModel.findByIdAndUpdate(
       { _id: payload.bookingId },
