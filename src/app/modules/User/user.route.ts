@@ -17,6 +17,6 @@ UserRoutes.post("/signin", validateRequest(userValidationSchema.loginUserValidat
 UserRoutes.get("/all-users", authCheck(userRole.admin), UserController.getAllUsers);
 
 // update status - admin
-UserRoutes.get("/user/status", authCheck(userRole.admin), UserController.updateUserStatus);
+UserRoutes.patch("/user/status", authCheck(userRole.admin), UserController.updateUserStatus);
 
 export default UserRoutes;
