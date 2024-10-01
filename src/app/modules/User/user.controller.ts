@@ -35,8 +35,17 @@ const getAllUsers = catchAsyncFunc(async (req, res) => {
   sendResponse(res, httpStatus.OK, "Users fetched successfully", result);
 });
 
+const updateUserStatus = catchAsyncFunc(async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  const result = await UserServices.updateUserStatusInDB(id, status);
+
+  sendResponse(res, httpStatus.OK, "User status updated successfully", result);
+});
+
 export const UserController = {
   signUpUser,
   signInUser,
   getAllUsers,
+  updateUserStatus,
 };

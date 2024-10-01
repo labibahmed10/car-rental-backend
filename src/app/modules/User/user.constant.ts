@@ -6,3 +6,5 @@ export const userRole = {
 } as const;
 
 export const Role: TUserRole[] = ["user", "admin"];
+
+export const UserStatus = ["active", "blocked"];

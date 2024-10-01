@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import { IUser, IUserModel } from "./user.interface";
-import { Role } from "./user.constant";
+import { Role, UserStatus } from "./user.constant";
 import bcrypt from "bcrypt";
 import config from "../../config/config";
 
@@ -18,7 +18,7 @@ const userSchema = new Schema<IUser, IUserModel>(
     },
     role: {
       type: String,
-      enum: [...Role],
+      enum: Role,
       required: [true, "Role is required"],
     },
     password: {
@@ -34,6 +34,16 @@ const userSchema = new Schema<IUser, IUserModel>(
       type: String,
       required: [true, "Address is required"],
     },
+    status: {
+      type: String,
+      enum: UserStatus,
+      default: "active",
+      required: [true, "Status is required"],
+    },
+    // profilePicture: {
+    //   type: String,
+    //   default: "",
+    // },
   },
   {
     timestamps: true,
@@ -82,4 +92,3 @@ userSchema.statics.isPasswordMatched = async function (plainPassword: string, ha
 
 // user model
 export const UserModel = model<IUser, IUserModel>("User", userSchema);
-

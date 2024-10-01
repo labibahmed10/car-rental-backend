@@ -48,8 +48,17 @@ const getAllUsersFromDB = async () => {
   return users;
 };
 
+const updateUserStatusInDB = async (id: string, status: string) => {
+  const updatedUser = await UserModel.findByIdAndUpdate(id, { status }, { new: true });
+  if (!updatedUser) {
+    throw new AppError(httpStatus.NOT_FOUND, "No user exist");
+  }
+  return updatedUser;
+};
+
 export const UserServices = {
   signUpUserIntoDB,
   signInUserFromDB,
   getAllUsersFromDB,
+  updateUserStatusInDB,
 };

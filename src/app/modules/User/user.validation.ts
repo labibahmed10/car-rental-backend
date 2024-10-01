@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Role } from "./user.constant";
+import { Role, UserStatus } from "./user.constant";
 
 const createUserValidationSchema = z.object({
   body: z.object({
@@ -9,6 +9,7 @@ const createUserValidationSchema = z.object({
     address: z.string({ required_error: "Address is required" }),
     phone: z.string({ required_error: "Phone is required" }),
     role: z.enum([...Role] as [string, ...string[]]).default("user"),
+    status: z.enum([...UserStatus] as [string, ...string[]]).default("active"),
   }),
 });
 
