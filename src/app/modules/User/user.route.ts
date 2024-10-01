@@ -14,9 +14,12 @@ UserRoutes.post("/signup", validateRequest(userValidationSchema.createUserValida
 UserRoutes.post("/signin", validateRequest(userValidationSchema.loginUserValidationSchema), UserController.signInUser);
 
 // get all users- admin
-UserRoutes.get("/all-users", authCheck(userRole.admin), UserController.getAllUsers);
+UserRoutes.get("/users", authCheck(userRole.admin), UserController.getAllUsers);
 
 // update status - admin
-UserRoutes.patch("/user/status", authCheck(userRole.admin), UserController.updateUserStatus);
+UserRoutes.patch("/user/:id/status", authCheck(userRole.admin), UserController.updateUserStatus);
+
+// update to admin
+UserRoutes.patch("/user/:id/admin", authCheck(userRole.admin), UserController.updateToAdmin);
 
 export default UserRoutes;

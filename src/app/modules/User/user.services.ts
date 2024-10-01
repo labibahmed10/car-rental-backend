@@ -56,9 +56,19 @@ const updateUserStatusInDB = async (id: string, status: string) => {
   return updatedUser;
 };
 
+const updateToAdminInDB = async (id: string) => {
+  const updatedUser = await UserModel.findByIdAndUpdate(id, { role: "admin" }, { new: true });
+
+  if (!updatedUser) {
+    throw new AppError(httpStatus.NOT_FOUND, "No user exist");
+  }
+  return updatedUser;
+};
+
 export const UserServices = {
   signUpUserIntoDB,
   signInUserFromDB,
   getAllUsersFromDB,
   updateUserStatusInDB,
+  updateToAdminInDB,
 };

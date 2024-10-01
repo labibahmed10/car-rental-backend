@@ -43,9 +43,17 @@ const updateUserStatus = catchAsyncFunc(async (req, res) => {
   sendResponse(res, httpStatus.OK, "User status updated successfully", result);
 });
 
+const updateToAdmin = catchAsyncFunc(async (req, res) => {
+  const { id } = req.params;
+  const result = await UserServices.updateToAdminInDB(id);
+
+  sendResponse(res, httpStatus.OK, "User updated to admin successfully", result);
+});
+
 export const UserController = {
   signUpUser,
   signInUser,
   getAllUsers,
   updateUserStatus,
+  updateToAdmin,
 };

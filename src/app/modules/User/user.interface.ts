@@ -2,6 +2,7 @@ import { Model } from "mongoose";
 import { userRole } from "./user.constant";
 
 export type TUserStatus = "active" | "block";
+
 export interface IUser {
   _id?: string;
   name: string;
