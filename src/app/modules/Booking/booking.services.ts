@@ -54,19 +54,11 @@ const createBookingIntroDb = async (userID: string, payload: IBookingPayload) =>
 
 const getAllBookingFromDb = async (query: Record<string, unknown>) => {
   if (query.carId) {
-    query.car = query.carId;
+    query._id = query.carId;
     delete query.carId;
   }
 
-  const queryBuilder = new QueryBuilder(
-    BookingModel
-    .find({})
-    .populate("user")
-    .populate("car"), query)
-    .search([])
-    .filter()
-    .sort()
-    .paginate();
+  const queryBuilder = new QueryBuilder(BookingModel.find({}).populate("user").populate("car"), query).search([]).filter().sort().paginate();
 
   const result = await queryBuilder.modelQuery;
   return result;
