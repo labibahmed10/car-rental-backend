@@ -4,7 +4,7 @@ import sendResponse from "../../utils/sendResponse";
 import { CarService } from "./car.services";
 import sendNoDataFound from "../../utils/sendNoDataFound";
 
-// create a car controller
+// create a car controllerv.+/
 const createCar = catchAsyncFunc(async (req, res) => {
   const result = await CarService.createCarsIntoDB(req.body);
 
@@ -13,8 +13,7 @@ const createCar = catchAsyncFunc(async (req, res) => {
 
 const getAllCars = catchAsyncFunc(async (req, res) => {
   const result = await CarService.getAllCarsFromDB(req.query);
-
-  if (!result || result.length === 0) {
+  if (!result || result?.length === 0) {
     return sendNoDataFound(res);
   }
   sendResponse(res, httpStatus.OK, "Cars fetched successfully", result);
@@ -38,7 +37,7 @@ const updateCar = catchAsyncFunc(async (req, res) => {
 
 const deleteCar = catchAsyncFunc(async (req, res) => {
   const result = await CarService.deleteCarFromDB(req.params.id);
-  // console.log(result);
+
   sendResponse(res, httpStatus.OK, "Car deleted successfully", result);
 });
 

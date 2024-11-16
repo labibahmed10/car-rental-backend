@@ -22,10 +22,9 @@ const getAllCarsFromDB = async (query: Record<string, unknown>) => {
     .filterByLocation()
     .filterByPrice()
     .select()
-    .sort()
-    .paginate().modelQuery;
+    .sort().modelQuery;
 
-  return fetchQuery;
+  return await fetchQuery;
 };
 
 const getCarByIdFromDB = async (id: string) => {

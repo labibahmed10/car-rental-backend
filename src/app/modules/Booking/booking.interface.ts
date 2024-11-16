@@ -3,6 +3,7 @@ import { Types } from "mongoose";
 type BookingStatus = "pending" | "approved" | "returned";
 
 type PaymentMethod = "cash" | "card" | "online";
+
 // booking interface
 export interface IBooking {
   date: string;
