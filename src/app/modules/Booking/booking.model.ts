@@ -53,17 +53,17 @@ const bookingSchema = new Schema<IBooking>(
     paymentMethod: {
       type: String,
       enum: paymentMethod,
-      required: [true, "Payment method is required"],
+      // required: [true, "Payment method is required"],
     },
 
     nidOrPassport: {
       type: String,
-      required: [true, "Nid  or Passport ID is required"],
+      // required: [true, "Nid  or Passport ID is required"],
     },
 
     drivingLicense: {
       type: String,
-      required: [true, "Driving License is required"],
+      // required: [true, "Driving License is required"],
     },
     accountNo: {
       type: String,

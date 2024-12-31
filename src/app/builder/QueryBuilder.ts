@@ -1,4 +1,5 @@
 import { FilterQuery, Query } from "mongoose";
+import { excludeFields } from "../modules/Car/car.constant";
 
 class QueryBuilder<T> {
   constructor(public modelQuery: Query<T[], T>, public queries: Record<string, unknown>) {
@@ -30,7 +31,15 @@ class QueryBuilder<T> {
   filterByIsElectric() {
     const isElectric = this.queries.isElectric;
     if (isElectric !== undefined) {
-      this.modelQuery = this.modelQuery.find({ isElectric: isElectric === "true" } as FilterQuery<T>);
+      this.modelQuery = this.modelQuery.find({ isElectric: isElectric === true } as FilterQuery<T>);
+    }
+    return this;
+  }
+
+  filterByIsFeatured() {
+    const isFeatured = this.queries.isFeatured;
+    if (isFeatured !== undefined) {
+      this.modelQuery = this.modelQuery.find({ isFeatured: isFeatured === true } as FilterQuery<T>);
     }
     return this;
   }
@@ -77,22 +86,6 @@ class QueryBuilder<T> {
 
   filter() {
     const queryObj = { ...this.queries };
-    const excludeFields = [
-      "searchValue",
-      "sort",
-      "limit",
-      "page",
-      "paginate",
-      "fields",
-      "type",
-      "minPrice",
-      "maxPrice",
-      "isElectric",
-      "location",
-      "startDate",
-      "endDate",
-    ];
-
     excludeFields.forEach((el) => delete queryObj[el]);
     this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
     return this;

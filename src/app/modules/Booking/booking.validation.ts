@@ -26,17 +26,21 @@ const createBookingValidationSchema = z.object({
         message: "Start Time must be in HH:MM format",
       }),
 
-    nidOrPassport: z.string({
-      required_error: "National ID or Passport is required",
-    }),
+    // nidOrPassport: z
+    //   .string({
+    //     required_error: "National ID or Passport is required",
+    //   })
+    //   .optional(),
 
-    drivingLicense: z.string({
-      required_error: "Driving License is required",
-    }),
+    // drivingLicense: z
+    //   .string({
+    //     required_error: "Driving License is required",
+    //   })
+    //   .optional(),
 
-    paymentMethod: z.enum([...(paymentMethod as [string, ...string[]])]),
+    // paymentMethod: z.enum([...(paymentMethod as [string, ...string[]])]).optional(),
 
-    accountNo: z.string().optional(),
+    // accountNo: z.string().optional().optional(),
   }),
 });
 

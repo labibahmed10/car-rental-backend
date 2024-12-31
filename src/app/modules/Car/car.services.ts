@@ -19,6 +19,7 @@ const getAllCarsFromDB = async (query: Record<string, unknown>) => {
     .filterByTypes()
     .filterByAvailabilityDates()
     .filterByIsElectric()
+    .filterByIsFeatured()
     .filterByLocation()
     .filterByPrice()
     .select()

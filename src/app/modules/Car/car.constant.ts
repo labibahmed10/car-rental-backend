@@ -4,6 +4,23 @@ export const carStatus = ["available", "unavailable"];
 // car searchable fields array
 export const carSearchableFields = ["name", "description", "color", "type"];
 
+export const excludeFields = [
+  "searchValue",
+  "sort",
+  "limit",
+  "page",
+  "paginate",
+  "fields",
+  "type",
+  "minPrice",
+  "maxPrice",
+  "isElectric",
+  "isFeatured",
+  "location",
+  "startDate",
+  "endDate",
+];
+
 // depending on HH:MM formate it will calculate exact hour
 export function calculateHourDifference(startTime: string, endTime: string): number {
   const startHours = parseInt(startTime.split(":")[0]);
