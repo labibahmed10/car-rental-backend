@@ -33,10 +33,10 @@ const authCheck = (...requiredRoles: TUserRole[]) => {
         statusCode: httpStatus.UNAUTHORIZED,
         message: "You have no access to this route",
       });
+    } else {
+      req.user = decoded;
+      next();
     }
-
-    req.user = decoded;
-    next();
   });
 };
 
